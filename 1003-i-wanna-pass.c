@@ -1,0 +1,64 @@
+#include<stdio.h>
+main()
+{
+	char pat[101],*p;
+	int ri,rn,i,countpre,countmid,countnext,countp,countt,ispass;
+	scanf("%d",&rn);
+	for(ri=0;ri<rn;ri++)
+	{
+		countp=countt=countnext=countmid=countpre=0;
+		ispass=1;
+		scanf("%s",pat);
+		for(p=pat;*p;p++)
+		{
+			if(countp==0&&*p=='A')
+				countpre++;
+			if(*p=='P')
+				countp++;
+			if(countp==1&&countt==0&&*p=='A')
+				countmid++;
+			if(countt==1&&countp==1&&*p=='A')
+				countnext++;
+			if(*p=='T')
+				countt++;
+			if(*p!='P'&&*p!='A'&&*p!='T')
+			{
+				ispass=0;
+				break;
+			}
+			if(countp>1||countt>1)
+			{
+				ispass=0;
+				break;				
+			}
+			if(countp==0&&countt==1)
+			{
+				ispass=0;
+				break;
+			}
+		}
+		if(countp!=1||countt!=1)
+			ispass=0;
+		if(ispass)
+		{
+			if(countmid==1)
+			{
+				if(countpre!=countnext)
+					ispass=0;
+			}
+			else if(countmid==0)
+			{
+				ispass=0;
+			}
+			else
+			{
+				if(countpre*countmid!=countnext)
+					ispass=0;
+			}
+		}
+		if(ispass)
+			printf("YES\n");
+		else
+			printf("NO\n");
+	}
+}
