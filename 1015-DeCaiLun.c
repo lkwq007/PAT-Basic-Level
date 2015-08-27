@@ -32,18 +32,18 @@ int section(EXAM *a,EXAM *b)
 		else
 			return A;
 	}
-	else if(a->de>=a->cai)
+	else if(a->de>=a->cai&&a->de<m&&a->cai<m)
 	{
 		if(b->de>=m)
 			return B;
-		else if (b->de>=b->cai)
+		else if (b->de>=b->cai&&b->de<m&&b->cai<m)
 			return SAME;
 		else
 			return A;
 	}
 	else
 	{
-		if(b->de<b->cai)
+		if(b->de<b->cai&&b->de<m)
 			return SAME;
 		else
 			return B;
