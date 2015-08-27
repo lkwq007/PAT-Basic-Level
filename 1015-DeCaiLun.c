@@ -68,13 +68,15 @@ int compare(const void *pa,const void *pb)
 			{
 				return H;
 			}
-			else
+			else if(a->de==b->de)
 			{
 				if(a->id>b->id)
-					return H;
-				else
 					return L;
+				else
+					return H;
 			}
+			else
+				return L;
 		}
 		else
 			return L;
