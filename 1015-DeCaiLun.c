@@ -109,4 +109,5 @@ int main()
 	{
 		printf("%d %d %d\n",list[i].id,list[i].de,list[i].cai);
 	}
+	free(list);
 }
