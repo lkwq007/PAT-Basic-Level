@@ -20,7 +20,7 @@ int main()
 	double result=0;
 	MOONCAKE *mc;
 	scanf("%d%d",&n,&demand);
-	mc=(MOONCAKE *)malloc(sizeof(MOONCAKE));
+	mc=(MOONCAKE *)malloc(n*sizeof(MOONCAKE));
 	for(i=0;i<n;i++)
 		scanf("%d",&(mc[i].amount));
 	for(i=0;i<n;i++)
