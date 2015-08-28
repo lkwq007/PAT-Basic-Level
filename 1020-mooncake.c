@@ -6,22 +6,22 @@ typedef struct mooncake
 	int sale;
 	double price;
 } MOONCAKE;
-/*int rcompare(const void *a,const void *b)
+int rcompare(const void *a,const void *b)
 {
 	if(((MOONCAKE *)b)->price>((MOONCAKE *)a)->price)
 		return 1;
 	else if(((MOONCAKE *)b)->price<((MOONCAKE *)a)->price)
 		return -1;
 	return 0;
-}*/
-int rcompare(const void *a,const void *b)
+}
+/*int rcompare(const void *a,const void *b)
 {
 	if(((MOONCAKE *)b)->sale*((MOONCAKE *)a)->amount>((MOONCAKE *)a)->sale*((MOONCAKE *)b)->amount)
 		return 1;
 	else if(((MOONCAKE *)b)->sale*((MOONCAKE *)a)->amount<((MOONCAKE *)a)->sale*((MOONCAKE *)b)->amount)
 		return -1;
 	return 0;
-}
+}*/
 int main()
 {
 	int i,n,demand,amount=0,enough=0;
@@ -34,19 +34,19 @@ int main()
 	for(i=0;i<n;i++)
 	{
 		scanf("%d",&(mc[i].sale));
-		//mc[i].price=mc[i].sale/(double)mc[i].amount;
+		mc[i].price=mc[i].sale/(double)mc[i].amount;
 	}
 	qsort(mc,n,sizeof(MOONCAKE),rcompare);
 	for(i=0;i<n;i++)
 	{
-		if(amount>=demand)
+		amount+=(mc[i].amount);
+		if(amount>demand)
 		{
 			enough=1;
 			break;
 		}
-		amount+=(mc[i].amount);
 	}
-	n=i;
+	n=i+1;
 	amount=0;
 	for(i=0;i<n;i++)
 	{
