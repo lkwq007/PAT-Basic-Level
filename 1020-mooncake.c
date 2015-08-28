@@ -2,8 +2,8 @@
 #include<stdlib.h>
 typedef struct mooncake
 {
-	int amount;
-	int sale;
+	double amount;
+	double sale;
 	double price;
 } MOONCAKE;
 int rcompare(const void *a,const void *b)
@@ -24,17 +24,17 @@ int rcompare(const void *a,const void *b)
 }*/
 int main()
 {
-	int i,n,demand,amount=0,enough=0;
-	double result=0;
+	int i,n,enough=0;
+	double result=0,demand,amount=0;
 	MOONCAKE *mc;
-	scanf("%d%d",&n,&demand);
+	scanf("%d%lf",&n,&demand);
 	mc=(MOONCAKE *)malloc(n*sizeof(MOONCAKE));
 	for(i=0;i<n;i++)
-		scanf("%d",&(mc[i].amount));
+		scanf("%lf",&(mc[i].amount));
 	for(i=0;i<n;i++)
 	{
-		scanf("%d",&(mc[i].sale));
-		mc[i].price=mc[i].sale/(double)mc[i].amount;
+		scanf("%lf",&(mc[i].sale));
+		mc[i].price=mc[i].sale/mc[i].amount;
 	}
 	qsort(mc,n,sizeof(MOONCAKE),rcompare);
 	for(i=0;i<n;i++)
@@ -54,12 +54,12 @@ int main()
 		{
 			amount=demand-amount;
 			/*result+=(mc[i].price*amount);*/
-			result+=(mc[i].sale*amount/(double)mc[i].amount);
+			result+=(mc[i].sale*amount/mc[i].amount);
 			break;
 		}
 		result+=mc[i].sale;
 		amount+=mc[i].amount;
 	}
-	printf("%.2f\n",result);
+	printf("%.2lf\n",result);
 	return 0;
 }
