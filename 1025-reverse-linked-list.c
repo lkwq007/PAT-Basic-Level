@@ -9,7 +9,7 @@ typedef struct
 } list;
 int main()
 {
-	int n,k,i,j,value;
+	int n,k,i,j;
 	char start[6];
 	list *in,*out,temp;
 	scanf("%s%d%d",start,&n,&k);
@@ -18,7 +18,7 @@ int main()
 	for(i=0;i<n;i++)
 	{
 		scanf("%s%d%s",in[i].address,&in[i].data,in[i].next);
-		if((value=strcmp(start,in[i].address))==0)
+		if(strcmp(start,in[i].address)==0)
 		{
 			out[0]=in[i];
 		}
@@ -30,32 +30,43 @@ int main()
 			if(strcmp(out[i].next,in[j].address)==0)
 			{
 				out[i+1]=in[j];
+				break;
 			}
 		}
 	}
-	for(i=0;i<n;i+=k)
+	if(k>1&&k<=n)
 	{
-		if(n-i>=k)
+		for(i=0;i<n;i+=k)
 		{
-			for(j=i;j<i+k/2;j++)
+			if(n-i>=k)
 			{
-				temp=out[j];
-				out[j]=out[i+k-j-1];
-				out[i+k-j-1]=temp;
+				for(j=i;j<i+k/2;j++)
+				{
+					temp=out[j];
+					out[j]=out[i+i+k-j-1];
+					out[i+i+k-j-1]=temp;
+				}
+			}
+			else
+			{
+				break;
 			}
 		}
-		else
+		for(i=0;i<n-1;i++)
 		{
-			break;
+			strcpy(out[i].next,out[i+1].address);
+			printf("%s %d %s\n",out[i].address,out[i].data,out[i].next);
 		}
-	}
-	for(i=0;i<n-1;i++)
-	{
-		strcpy(out[i].next,out[i+1].address);
+		strcpy(out[i].next,"-1");
 		printf("%s %d %s\n",out[i].address,out[i].data,out[i].next);
 	}
-	strcpy(out[i].next,"-1");
-	printf("%s %d %s\n",out[i].address,out[i].data,out[i].next);
+	else
+	{
+		for(i=0;i<n;i++)
+		{
+			printf("%s %d %s\n",out[i].address,out[i].data,out[i].next);
+		}
+	}
 	free(in);
 	free(out);
 }
