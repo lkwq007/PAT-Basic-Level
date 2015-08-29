@@ -1,0 +1,70 @@
+#include<stdio.h>
+struct
+{
+	char c;
+	long num;
+}count[100001],*pcount,*pcount_e;
+int main()
+{
+	char buf[100001]=" ";
+	long i,j,k,result=0,count_t=0,temp[3],flag;
+	pcount=count;
+	gets(buf);
+	count[0].c=buf[0];
+	count[0].num++;
+	for(i=1;buf[i];i++)
+	{
+		if(buf[i]==pcount->c)
+		{
+			(pcount->num)++;
+		}
+		else
+		{
+			pcount++;
+			pcount->c=buf[i];
+			pcount->num++;
+		}
+	}
+	pcount_e=pcount+1;
+	pcount_e->c='T';
+	pcount_e->num=0;
+	for(i=0;pcount+i>count;i--)
+	{
+		if((pcount+i)->c=='T')
+		{
+			(pcount+i)->num+=count_t;
+			count_t=(pcount+i)->num;
+		}
+	}
+	for(i=0;count+i<pcount_e;i++)
+	{
+		temp[0]=1;
+		if(count[i].c=='P')
+		{
+			temp[0]*=count[i].num;
+			temp[1]=0;
+			flag=0;
+			for(j=i+1;count+j<pcount_e;j++)
+			{
+				if(count[j].c=='A')
+				{
+					temp[2]=1;
+					temp[2]*=count[j].num;
+					for(k=j+1;count+k<=pcount_e;k++)
+					{
+						if(count[k].c=='T')
+						{
+							temp[2]*=count[k].num;
+							break;
+						}
+					}
+					temp[1]+=temp[2];
+				}
+			}
+			temp[0]*=temp[1];
+			result+=temp[0];
+			result%=1000000007;
+		}
+	}
+	printf("%d\n",result);
+}
