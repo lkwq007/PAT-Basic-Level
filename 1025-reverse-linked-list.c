@@ -21,17 +21,15 @@ int main()
 		if((value=strcmp(start,in[i].address))==0)
 		{
 			out[0]=in[i];
-			strcpy(in[i].address,"F");
 		}
 	}
-	for(i=1;i<n;i++)
+	for(i=0;i<n-1;i++)
 	{
 		for(j=0;j<n;j++)
 		{
-			if((value=strcmp(out[i-1].next,in[j].address))==0);
+			if(strcmp(out[i].next,in[j].address)==0)
 			{
-				out[i]=in[j];
-				break;
+				out[i+1]=in[j];
 			}
 		}
 	}
