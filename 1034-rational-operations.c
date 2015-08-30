@@ -1,15 +1,16 @@
 #include<stdio.h>
+#include<math.h>
 #define ABS(x) ((x)>0?(x):(-x))
 typedef struct fraction
 {
-	int numerator;
-	int denominator;
-	int num;
+	long numerator;
+	long denominator;
+	long num;
 } FRACTION;
 
 FRACTION simplify(FRACTION a)
 {
-	int i,flag=1;
+	long i,flag=1;
 	if(a.denominator==0)
 	{
 		a.num=0;
@@ -29,12 +30,20 @@ FRACTION simplify(FRACTION a)
 	}
 	a.num=a.numerator/a.denominator;
 	a.numerator%=a.denominator;
-	for(i=a.numerator;i>=2;i--)
+	if(a.numerator!=0&&a.denominator%a.numerator==0)
 	{
-		if(a.numerator%i==0&&a.denominator%i==0)
+		a.denominator=a.denominator/a.numerator;
+		a.numerator=1;
+	}
+	if(a.numerator>1)
+	{
+		for(i=sqrt(a.numerator);i>1;i--)
 		{
-			a.numerator/=i;
-			a.denominator/=i;
+			while(a.numerator%i==0&&a.denominator%i==0)
+			{
+				a.numerator/=i;
+				a.denominator/=i;
+			}
 		}
 	}
 	if(a.num!=0)
@@ -87,24 +96,24 @@ void print(FRACTION a)
 		else
 		{
 			if(a.numerator<0)
-				printf("(-%d/%d)",ABS(a.numerator),ABS(a.denominator));
+				printf("(-%ld/%ld)",ABS(a.numerator),ABS(a.denominator));
 			else
-				printf("%d/%d",a.numerator,a.denominator);
+				printf("%ld/%ld",a.numerator,a.denominator);
 		}
 	}
 	else if(a.numerator==0)
 	{
 		if(a.num>0)
-			printf("%d",a.num);
+			printf("%ld",a.num);
 		else
-			printf("(%d)",a.num);
+			printf("(%ld)",a.num);
 	}
 	else
 	{
 		if(a.num>0)
-			printf("%d %d/%d",a.num,a.numerator,a.denominator);
+			printf("%ld %ld/%ld",a.num,a.numerator,a.denominator);
 		else
-			printf("(%d %d/%d)",a.num,a.numerator,a.denominator);
+			printf("(%ld %ld/%ld)",a.num,a.numerator,a.denominator);
 	}
 }
 
@@ -121,7 +130,7 @@ void print_expression(FRACTION a,FRACTION b,FRACTION c,char o)
 int main()
 {
 	FRACTION a,b,a_s,b_s,c;
-	scanf("%d/%d %d/%d",&a.numerator,&a.denominator,&b.numerator,&b.denominator);
+	scanf("%ld/%ld %ld/%ld",&a.numerator,&a.denominator,&b.numerator,&b.denominator);
 	a_s=simplify(a);
 	b_s=simplify(b);
 	c=simplify(plus(a,b));
