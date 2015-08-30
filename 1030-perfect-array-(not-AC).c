@@ -28,19 +28,18 @@ int main()
 	}
 	for(i=0;i<n;i++)
 	{
-		if(i+max>n)
+		if(n-i<max)
 			break;
-		for(j=i+max;j<n;j++)
+		for(j=n-1;j>=i;j--)
 		{
+			if(j-i<max)
+				break;
 			if(nums[i]>=num[j])
 			{
 				if(max<j-i+1)
 				{
 					max=j-i+1;
 				}
-			}
-			else
-			{
 				break;
 			}
 		}
