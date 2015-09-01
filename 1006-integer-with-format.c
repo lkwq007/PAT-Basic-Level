@@ -19,12 +19,10 @@ main()
 			printf("S");
 			counts--;
 		}
-
-			for(i=1;i<=countg;i++)
-			{
-				printf("%d",i);
-			}
-
+		for(i=1;i<=countg;i++)
+		{
+			printf("%d",i);
+		}
 		printf("\n");
 	}
 	else if(n<100&&n>9)
@@ -36,11 +34,10 @@ main()
 			printf("S");
 			counts--;
 		}
-
-			for(i=1;i<=countg;i++)
-			{
-				printf("%d",i);
-			}
+		for(i=1;i<=countg;i++)
+		{
+			printf("%d",i);
+		}
 		printf("\n");
 	}
 	else if(n<10&&n>0)
