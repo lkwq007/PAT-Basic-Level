@@ -6,7 +6,7 @@ int compare(const void *a,const void *b)
 }
 int main()
 {
-	int num[100000],temp[100000],result[100000],*p_result=result,i,j,n,latest=-1;
+	int num[100000],temp[100000],result[100000],*p_result=result,i,j,n;
 	scanf("%d",&n);
 	for(i=0;i<n;i++)
 	{
