@@ -1,3 +1,5 @@
+//using unstable sort
+//need fixing
 #include<stdio.h>
 #include<stdlib.h>
 
