@@ -1,6 +1,5 @@
 #include<stdio.h>
 #include<math.h>
-#include<float.h>
 int main()
 {
 	double r1,p1,r2,p2;
