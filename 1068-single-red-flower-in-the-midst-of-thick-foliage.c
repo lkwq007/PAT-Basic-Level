@@ -1,39 +1,49 @@
-// not AC
-// i misunderstood the unique color
 #include<stdio.h>
+#include<stdlib.h>
 #include<math.h>
 int bitmap[1024][1024];
-typedef struct attr_
+typedef struct bucket_ bucket;
+struct bucket_
 {
-	int x;
-	int y;
 	int color;
 	int flag;
-} attr;
-attr table[2048];
-int lookup(int color,int len)
+	bucket *next;
+};
+bucket *table[2017];
+int lookup(int color)
 {
-	int i;
-	for(i=0;i<len;i++)
+	int index,temp;
+	bucket *head;
+	index=(color>>8+color)%2017;
+	head=table[index];
+	while(head)
 	{
-		if(color==table[i].color)
+		if(head->color==color)
 		{
-			table[i].flag=1;
-			return 1;
+			temp=head->flag;
+			head->flag=1;
+			return temp;
 		}
+		head=head->next;
 	}
+	head=(bucket *)malloc(sizeof(bucket));
+	head->next=table[index];
+	head->color=color;
+	head->flag=0;
+	table[index]=head;
 	return 0;
 }
 int main()
 {
-	int m,n,tol,i,j,offset=0;
-	int x,y,color,ret,cnt,last;
+	int m,n,tol,i,j;
+	int x,y,color,cnt=0;
 	scanf("%d%d%d",&m,&n,&tol);
 	for(i=1;i<=n;i++)
 	{
 		for(j=1;j<=m;j++)
 		{
 			scanf("%d",&(bitmap[i][j]));
+			lookup(bitmap[i][j]);
 		}
 	}
 	for(i=0;i<m+2;i++)
@@ -50,33 +60,27 @@ int main()
 	{
 		for(j=1;j<=m;j++)
 		{
-			if( abs(bitmap[i][j]-bitmap[i-1][j-1])>tol&&
+			if(lookup(bitmap[i][j])==0)
+			{
+				if((abs(bitmap[i][j]-bitmap[i-1][j-1])>tol&&
 				abs(bitmap[i][j]-bitmap[i-1][j])>tol&&
 				abs(bitmap[i][j]-bitmap[i-1][j+1])>tol&&
 				abs(bitmap[i][j]-bitmap[i][j-1])>tol&&
 				abs(bitmap[i][j]-bitmap[i][j+1])>tol&&
 				abs(bitmap[i][j]-bitmap[i+1][j-1])>tol&&
 				abs(bitmap[i][j]-bitmap[i+1][j])>tol&&
-				abs(bitmap[i][j]-bitmap[i+1][j+1])>tol)
-			{
-				ret=lookup(bitmap[i][j],offset);
-				if(ret==0)
+				abs(bitmap[i][j]-bitmap[i+1][j+1])>tol))
 				{
-					table[offset].x=j;
-					table[offset].y=i;
-					table[offset].color=bitmap[i][j];
-					table[offset++].flag=0;
+					cnt++;
+					x=j;
+					y=i;
+					color=bitmap[i][j];
+				}
+				if(cnt>1)
+				{
+					break;
 				}
 			}
-		}
-	}
-	cnt=0;
-	for(i=0;i<offset;i++)
-	{
-		if(table[i].flag==0)
-		{
-			cnt++;
-			last=i;
 		}
 	}
 	if(cnt>1)
@@ -89,6 +93,6 @@ int main()
 	}
 	else
 	{
-		printf("(%d, %d): %d\n",table[last].x,table[last].y,table[last].color);
+		printf("(%d, %d): %d\n",x,y,color);
 	}
 }
